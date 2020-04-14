@@ -29,7 +29,7 @@ jobs:
       uses: actions/setup-node@v1.4.1
     - name: Bundle Install
       run: |
-        bundle install --deployment --without=development
+        bundle install --deployment --with=production
     - name: Yarn Install
       run: yarn install --prod
     - name: Precompile Assets
