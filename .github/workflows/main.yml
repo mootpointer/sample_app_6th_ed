@@ -31,7 +31,7 @@ jobs:
       run: |
         bundle install --deployment --without development test
     - name: Yarn Install
-      run: yarn install --prod --check-files
+      run: yarn install --check-files
     - name: Precompile Assets
       run: bundle exec rake assets:precompile
 
