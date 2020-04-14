@@ -25,9 +25,11 @@ jobs:
       with:
         # Version range or exact version of a Ruby version to use.
         version: 2.6
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v1.4.1
     - name: Bundle Install
       run: |
-        bundle install --deployment
+        bundle install --deployment --without=development
     - name: Yarn Install
       run: yarn install --prod
     - name: Precompile Assets
