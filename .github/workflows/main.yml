@@ -34,5 +34,7 @@ jobs:
       run: yarn install --check-files
     - name: Precompile Assets
       run: bundle exec rake assets:precompile
+      env:
+        rails_env: production
 
     
