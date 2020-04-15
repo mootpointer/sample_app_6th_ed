@@ -17,7 +17,7 @@ jobs:
     needs: build 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v1.0.0
+        uses: actions/download-artifact@v2-preview
         with:
           # Artifact name
           name: build
@@ -60,7 +60,7 @@ jobs:
         RAILS_ENV: production
         SECRET_KEY_BASE: lulz
     - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v2-preview
       with:
         # Artifact name
         name: build
