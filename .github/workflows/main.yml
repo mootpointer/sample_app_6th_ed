@@ -27,14 +27,23 @@ jobs:
         version: 2.6
     - name: Setup Node.js environment
       uses: actions/setup-node@v1.4.1
-    - name: Bundle Install
+    - uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+    - name: Bundle install
       run: |
-        bundle install --deployment --without development test
+        bundle config path vendor/bundle
+        bundle config without development test
+        bundle install --jobs 4 --retry 3
     - name: Yarn Install
       run: yarn install --check-files
     - name: Precompile Assets
       run: bundle exec rake assets:precompile
       env:
         RAILS_ENV: production
+        SECRET_KEY_BASE: lulz
 
     
