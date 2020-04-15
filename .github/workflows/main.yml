@@ -35,6 +35,6 @@ jobs:
     - name: Precompile Assets
       run: bundle exec rake assets:precompile
       env:
-        rails_env: production
+        RAILS_ENV: production
 
     
