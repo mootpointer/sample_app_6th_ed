@@ -26,7 +26,7 @@ jobs:
       uses: actions/setup-ruby@v1.0.0
       with:
         # Version range or exact version of a Ruby version to use.
-        version: 2.6
+        version: 2.6.2
     - name: Setup Node.js environment
       uses: actions/setup-node@v1.4.1
     - uses: actions/cache@v1
