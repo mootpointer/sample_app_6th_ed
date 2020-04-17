@@ -42,7 +42,7 @@ end
 
 group :production do
   gem 'pg', '1.1.4'
-  gem 'azure-storage-blob'
+  gem 'azure-storage', '~> 0.15.0.preview'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
