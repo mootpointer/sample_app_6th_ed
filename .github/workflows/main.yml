@@ -22,38 +22,28 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    - name: Setup Ruby for use with actions
-      uses: ruby/setup-ruby@v1
+    
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
       with:
-        # Version range or exact version of a Ruby version to use.
-        version: 2.6.2
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v1.4.1
-    - uses: actions/cache@v1
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: azure/docker-login@v1
+      name: 'Login to Azure'
       with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems-2.6.2-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gems-2.6.2-
-    - name: Bundle install
-      run: |
-        bundle config path vendor/bundle
-        bundle config without development test
-        bundle install --jobs 4 --retry 3
-        tar -zcf gems.tgz -C vendor/bundle .
-    - name: Yarn Install
-      run: yarn install --check-files
-    - name: Precompile Assets
-      run: bundle exec rake assets:precompile
-      env:
-        RAILS_ENV: production
-        SECRET_KEY_BASE: lulz
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
-      uses: azure/webapps-deploy@v2
-      with: 
-        app-name: rails-sample
-        publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+       login-server: railsteardown.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
 
+    - name: 'Build and push image'
+      run: |
+        docker build . -t railsteardown.azurecr.io/rails-sample:${{ github.sha }}
+        docker push railsteardown.azurecr.io/rails-sample:${{ github.sha }}
+  
+    - name: 'Deploy to Azure Web App for Container'   
+      uses: azure/webapps-container-deploy@v1
+      with: 
+        app-name: rails-sample 
+        images: railsteardown.azurecr.io/rails-sample:${{ github.sha }}
 
 
 
