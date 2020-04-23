@@ -1,6 +1,6 @@
 FROM ruby:2.6.6-alpine
 
-ENV BUNDLER_VERSION=2.0.2 RAILS_ENV=production
+ENV BUNDLER_VERSION=2.0.2 RAILS_ENV=production SECRET_KEY_BASE=build
 
 RUN apk add --update --no-cache \
     binutils-gold \
