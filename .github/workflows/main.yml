@@ -34,7 +34,8 @@ jobs:
 
     - name: 'Build and push image'
       run: |
-        docker build . -t railsteardown.azurecr.io/rails-sample:${{ github.sha }}
+        docker pull railsteardown.azurecr.io/rails-sample
+        docker build . -t railsteardown.azurecr.io/rails-sample:${{ github.sha }} --cache-from=railsteardown.azurecr.io/rails-sample
         docker push railsteardown.azurecr.io/rails-sample:${{ github.sha }}
   
     - name: 'Deploy to Azure Web App for Container'   
