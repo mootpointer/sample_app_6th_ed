@@ -1,39 +1,9 @@
 FROM ruby:2.6.6-alpine AS build-env
 
-<<<<<<< HEAD
-ENV BUNDLER_VERSION=2.0.2 RAILS_ENV=production SECRET_KEY_BASE=build
-
-RUN apk add --update --no-cache \
-    binutils-gold \
-    build-base \
-    curl \
-    file \
-    g++ \
-    gcc \
-    git \
-    less \
-    libstdc++ \
-    libffi-dev \
-    libc-dev \ 
-    linux-headers \
-    libxml2-dev \
-    libxslt-dev \
-    libgcrypt-dev \
-    make \
-    netcat-openbsd \
-    nodejs \
-    openssl \
-    pkgconfig \
-    postgresql-dev \
-    python \
-    tzdata \
-    yarn 
-=======
 ARG RAILS_ROOT=/app
 ARG BUILD_PACKAGES="build-base curl-dev git"
 ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev nodejs yarn libxml2-dev libxslt-dev"
 ARG RUBY_PACKAGES="tzdata"
->>>>>>> Slim down our docker image
 
 ENV RAILS_ENV=production SECRET_KEY_BASE=fake
 ENV NODE_ENV=production
@@ -78,13 +48,6 @@ RUN apk update \
     && apk add --update --no-cache $PACKAGES
 COPY --from=build-env $RAILS_ROOT $RAILS_ROOT
 
-<<<<<<< HEAD
-COPY . ./
-
-RUN bundle exec rails assets:precompile
-
-=======
->>>>>>> Slim down our docker image
 EXPOSE 3000
 
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
