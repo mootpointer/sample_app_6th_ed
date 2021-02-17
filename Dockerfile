@@ -19,9 +19,9 @@ RUN gem install bundler -v 2.2.10
 COPY Gemfile* package.json yarn.lock ./
 RUN bundle config build.nokogiri --use-system-libraries \
     && bundle config --global frozen 1 \
-    && bundle config set --local path 'vendor/bundle'
-&& bundle config set --local without 'development:test:assets'
-&& bundle install --without development:test:assets -j4 --retry 3 --path=vendor/bundle \
+    && bundle config set --local path 'vendor/bundle' \
+    && bundle config set --local without 'development:test:assets' \
+    && bundle install --without development:test:assets -j4 --retry 3 --path=vendor/bundle \
     # Remove unneeded files (cached *.gem, *.o, *.c)
     && rm -rf vendor/bundle/ruby/2.5.0/cache/*.gem \
     && find vendor/bundle/ruby/2.6.0/gems/ -name "*.c" -delete \
