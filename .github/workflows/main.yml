@@ -39,11 +39,5 @@ jobs:
         docker tag railskubernetes.azurecr.io/rails-sample:${{ github.sha }} railskubernetes.azurecr.io/rails-sample:latest
         docker push railskubernetes.azurecr.io/rails-sample:${{ github.sha }}
   
-    - name: 'Deploy to Azure Web App for Container'   
-      uses: azure/webapps-container-deploy@v1
-      with: 
-        app-name: rails-sample 
-        images: railskubernetes.azurecr.io/rails-sample:${{ github.sha }}
-
 
 
