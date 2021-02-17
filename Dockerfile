@@ -5,9 +5,7 @@ ARG BUILD_PACKAGES="build-base curl-dev git"
 ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev nodejs yarn libxml2-dev libxslt-dev"
 ARG RUBY_PACKAGES="tzdata"
 
-ENV RAILS_ENV=production SECRET_KEY_BASE=fake
-ENV NODE_ENV=production
-ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
+ENV RAILS_ENV=production SECRET_KEY_BASE=fake NODE_ENV=production BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
 
 WORKDIR $RAILS_ROOT
 
@@ -16,7 +14,7 @@ RUN apk update \
     && apk upgrade \
     && apk add --update --no-cache $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES
 
-RUN gem install bundler -v 2.0.2
+RUN gem install bundler -v 2.2.10
 
 COPY Gemfile* package.json yarn.lock ./
 RUN bundle config build.nokogiri --use-system-libraries \
@@ -29,8 +27,8 @@ RUN bundle config build.nokogiri --use-system-libraries \
 
 RUN yarn install --production --check-files
 COPY . .
-RUN bin/rails webpacker:compile
-RUN bin/rails assets:precompile
+RUN bundle exec bin/rails webpacker:compile
+RUN bundle exec bin/rails assets:precompile
 
 RUN rm -rf node_modules tmp/cache app/assets vendor/assets spec
 
