@@ -38,6 +38,7 @@ jobs:
         docker build . -t railskubernetes.azurecr.io/rails-sample:${{ github.sha }} --cache-from=railskubernetes.azurecr.io/rails-sample
         docker tag railskubernetes.azurecr.io/rails-sample:${{ github.sha }} railskubernetes.azurecr.io/rails-sample:latest
         docker push railskubernetes.azurecr.io/rails-sample:${{ github.sha }}
+        docker push railskubernetes.azurecr.io/rails-sample:latest
   
 
 
