@@ -45,7 +45,8 @@ WORKDIR $RAILS_ROOT
 # install packages
 RUN apk update \
     && apk upgrade \
-    && apk add --update --no-cache $PACKAGES
+    && apk add --update --no-cache $PACKAGES \
+    && gem install bundler -v2.2.10
 COPY --from=build-env $RAILS_ROOT $RAILS_ROOT
 
 EXPOSE 3000
