@@ -41,7 +41,7 @@ group :test do
 end
 
 group :production do
-  gem 'azure-storage', '~> 0.15.0.preview'
+  gem "azure-storage-blob", require: false
   gem 'pg',         '1.2.3'
 end
 
