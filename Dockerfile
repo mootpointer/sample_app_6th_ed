@@ -32,7 +32,7 @@ COPY . .
 RUN bundle exec bin/rails webpacker:compile
 RUN bundle exec bin/rails assets:precompile
 
-RUN rm -rf node_modules tmp/cache app/assets vendor/assets spec
+RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendor/assets spec
 
 ############### Build step done ###############
 
